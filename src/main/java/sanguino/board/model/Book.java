@@ -1,17 +1,17 @@
-package es.codeurjc.board.model;
+package sanguino.board.model;
 
 public class Book {
 
     private Long id;
     private String title;
-    private String sinopsis;
+    private String synopsis;
     private String author;
     private String editorial;
     private Integer publishedYear;
 
-    public Book(String title, String sinopsis, String author, String editorial, Integer publishedYear) {
+    public Book(String title, String synopsis, String author, String editorial, Integer publishedYear) {
         this.title = title;
-        this.sinopsis = sinopsis;
+        this.synopsis = synopsis;
         this.author = author;
         this.editorial = editorial;
         this.publishedYear = publishedYear;
@@ -33,12 +33,12 @@ public class Book {
         this.title = title;
     }
 
-    public String getSinopsis() {
-        return sinopsis;
+    public String getSynopsis() {
+        return synopsis;
     }
 
-    public void setSinopsis(String sinopsis) {
-        this.sinopsis = sinopsis;
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 
     public String getAuthor() {
@@ -67,7 +67,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book [id=" + id + ", title =" + title + ", sinopsis =" + sinopsis + ", author =" + author + ", editorial =" + editorial + ", publishedYearuser=" + this.publishedYear.toString() + "]";
+        return "Book [id=" + id + ", title =" + title + ", synopsis =" + synopsis + ", author =" + author + ", editorial =" + editorial + ", publishedYearuser=" + this.publishedYear.toString() + "]";
     }
 
 }

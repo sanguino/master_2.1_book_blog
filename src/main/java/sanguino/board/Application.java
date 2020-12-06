@@ -1,4 +1,4 @@
-package es.codeurjc.board;
+package sanguino.board;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
