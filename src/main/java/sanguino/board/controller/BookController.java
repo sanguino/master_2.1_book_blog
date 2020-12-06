@@ -1,5 +1,6 @@
 package sanguino.board.controller;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import sanguino.board.model.Book;
 import sanguino.board.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,15 @@ public class BookController {
 	public String newBook(Model model, Book book) {
 		bookService.save(book);
 		return "saved_book";
+	}
+
+	@GetMapping("/book/{id}")
+	public String showPost(Model model, @PathVariable long id) {
+
+		Book book = bookService.findById(id);
+
+		model.addAttribute("book", book);
+
+		return "show_book";
 	}
 }

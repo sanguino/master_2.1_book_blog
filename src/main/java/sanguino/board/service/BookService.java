@@ -30,4 +30,8 @@ public class BookService {
 
         this.books.put(id, book);
     }
+
+    public Book findById(long id) {
+        return this.books.get(id);
+    }
 }
