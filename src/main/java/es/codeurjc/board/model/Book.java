@@ -1,0 +1,73 @@
+package es.codeurjc.board.model;
+
+public class Book {
+
+    private Long id;
+    private String title;
+    private String sinopsis;
+    private String author;
+    private String editorial;
+    private Integer publishedYear;
+
+    public Book(String title, String sinopsis, String author, String editorial, Integer publishedYear) {
+        this.title = title;
+        this.sinopsis = sinopsis;
+        this.author = author;
+        this.editorial = editorial;
+        this.publishedYear = publishedYear;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSinopsis() {
+        return sinopsis;
+    }
+
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getEditorial() {
+        return editorial;
+    }
+
+    public void setEditorial(String editorial) {
+        this.editorial = editorial;
+    }
+
+    public Integer getPublishedYear() {
+        return publishedYear;
+    }
+
+    public void setPublishedYear(Integer publishedYear) {
+        this.publishedYear = publishedYear;
+    }
+
+    @Override
+    public String toString() {
+        return "Book [id=" + id + ", title =" + title + ", sinopsis =" + sinopsis + ", author =" + author + ", editorial =" + editorial + ", publishedYearuser=" + this.publishedYear.toString() + "]";
+    }
+
+}
