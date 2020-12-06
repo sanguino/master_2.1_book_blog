@@ -21,12 +21,12 @@ public class BookController {
 		return "index";
 	}
 
-	@GetMapping("/book/new")
+	@GetMapping("/book")
 	public String newBookForm() {
 		return "new_book";
 	}
 	
-	@PostMapping("/book/new")
+	@PostMapping("/book")
 	public String newBook(Model model, Book book) {
 		bookService.save(book);
 		return "saved_book";
