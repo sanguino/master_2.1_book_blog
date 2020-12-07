@@ -30,19 +30,19 @@ public class BookRestController {
     private UserSession userSession;
 
     @JsonView(Book.Basic.class)
-    @GetMapping("/book")
+    @GetMapping("/books")
     public Collection<Book> listBooks() {
         return this.bookService.findAll();
     }
 
-    @PostMapping("/book")
+    @PostMapping("/books")
     public ResponseEntity<Book> newBook(@RequestBody Book book) {
         bookService.save(book);
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(book.getId()).toUri();
         return ResponseEntity.created(location).body(book);
     }
 
-    @GetMapping("/book/{id}")
+    @GetMapping("/books/{id}")
     public ResponseEntity<Book> showPost(@PathVariable long id) {
         Book book = bookService.findById(id);
         if (book != null) {
@@ -52,7 +52,7 @@ public class BookRestController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/book/{bookId}/comment")
+    @PostMapping("/books/{bookId}/comments")
     public ResponseEntity<Comment> newComment(@RequestBody Comment comment, @PathVariable long bookId) {
         comment.setBookId(bookId);
         commentService.addComment(comment);
@@ -60,7 +60,7 @@ public class BookRestController {
         return ResponseEntity.created(location).body(comment);
     }
 
-    @DeleteMapping("/book/{bookId}/comment/{commentId}")
+    @DeleteMapping("/books/{bookId}/comments/{commentId}")
     public ResponseEntity<Comment> deleteComment(@PathVariable long bookId, @PathVariable long commentId) {
         Comment comment = commentService.findById(commentId);
         if (comment != null && comment.getBookId() == bookId) {
