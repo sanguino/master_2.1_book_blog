@@ -28,10 +28,14 @@ public class CommentService {
         this.comments.put(id, comment);
     }
 
-    public List<Comment> findById(long id) {
+    public List<Comment> findByBookId(long id) {
         return comments.values().stream()
                 .filter(comment -> comment.getBookId() == id)
                 .collect(Collectors.toList());
+    }
+
+    public Comment findById(long id) {
+        return comments.get(id);
     }
 
     public void deleteCommentById(long commentId) {

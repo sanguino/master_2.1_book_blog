@@ -1,8 +1,13 @@
 package sanguino.board.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Comment {
 
+
     private Long id;
+
+    @JsonIgnore
     private Long bookId;
     private String name;
     private String comment;

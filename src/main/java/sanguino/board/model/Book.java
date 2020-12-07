@@ -1,9 +1,17 @@
 package sanguino.board.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 public class Book {
 
+    public interface Basic {}
+
+    @JsonView(Basic.class)
     private Long id;
+
+    @JsonView(Basic.class)
     private String title;
+
     private String synopsis;
     private String author;
     private String editorial;

@@ -1,6 +1,5 @@
 package sanguino.board.controller;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
@@ -48,7 +47,7 @@ public class BookController {
 	public String showPost(Model model, @PathVariable long id) {
 
 		Book book = bookService.findById(id);
-		List<Comment> comments = commentService.findById(id);
+		List<Comment> comments = commentService.findByBookId(id);
 
 		model.addAttribute("user", userSession.getUser());
 		model.addAttribute("book", book);
