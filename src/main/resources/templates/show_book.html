@@ -19,6 +19,9 @@
 		<p>Name: {{name}}</p>
 		<p>Comment: {{comment}}</p>
 		<p>Score: {{score}}</p>
+		<form action="/book/{{book.id}}/comment/{{id}}/delete" method="get">
+			<input type='submit' value='Delete'/>
+		</form>
 	</div>
 	{{/comments}}
 	<br>

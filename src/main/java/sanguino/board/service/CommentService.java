@@ -17,6 +17,10 @@ public class CommentService {
     private ConcurrentMap<Long, Comment> comments = new ConcurrentHashMap<>();
     private AtomicLong nextId = new AtomicLong();
 
+    public CommentService () {
+        this.addComment(new Comment(0L, "Peter", "Great Book", 42 ));
+    }
+
     public void addComment(Comment comment) {
 
         long id = this.nextId.getAndIncrement();
@@ -28,5 +32,9 @@ public class CommentService {
         return comments.values().stream()
                 .filter(comment -> comment.getBookId() == id)
                 .collect(Collectors.toList());
+    }
+
+    public void deleteCommentById(long commentId) {
+        this.comments.remove(commentId);
     }
 }

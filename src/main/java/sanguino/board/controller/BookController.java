@@ -1,5 +1,6 @@
 package sanguino.board.controller;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
@@ -63,6 +64,18 @@ public class BookController {
 		commentService.addComment(comment);
 
 		model.addAttribute("id", bookId);
+		model.addAttribute("type", "saved");
+		return "saved_comment";
+	}
+
+	@GetMapping("/book/{bookId}/comment/{commentId}/delete")
+	public String deleteComment(Model model, Comment comment, @PathVariable long bookId, @PathVariable long commentId ) {
+
+		comment.setBookId(bookId);
+		commentService.deleteCommentById(commentId);
+
+		model.addAttribute("id", bookId);
+		model.addAttribute("type", "deleted");
 		return "saved_comment";
 	}
 }
