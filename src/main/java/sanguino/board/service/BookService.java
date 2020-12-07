@@ -2,6 +2,7 @@ package sanguino.board.service;
 
 import sanguino.board.model.Book;
 import org.springframework.stereotype.Service;
+import sanguino.board.model.Comment;
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
