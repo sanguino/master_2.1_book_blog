@@ -3,6 +3,7 @@ package sanguino.board.controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
+import sanguino.board.model.UserSession;
 import sanguino.board.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class BookController {
 
 	@Autowired
 	private CommentService commentService;
+
+	@Autowired
+	private UserSession userSession;
 
 	@GetMapping("/")
 	public String listBooks(Model model) {
@@ -45,6 +49,7 @@ public class BookController {
 		Book book = bookService.findById(id);
 		List<Comment> comments = commentService.findById(id);
 
+		model.addAttribute("user", userSession.getUser());
 		model.addAttribute("book", book);
 		model.addAttribute("comments", comments);
 
@@ -54,6 +59,7 @@ public class BookController {
 	@PostMapping("/book/{bookId}/comment")
 	public String newComment(Model model, Comment comment, @PathVariable long bookId ) {
 		comment.setBookId(bookId);
+		userSession.setUser(comment.getName());
 		commentService.addComment(comment);
 
 		model.addAttribute("id", bookId);
