@@ -1,8 +1,7 @@
 package sanguino.board.service;
 
-import sanguino.board.model.Book;
 import org.springframework.stereotype.Service;
-import sanguino.board.model.Comment;
+import sanguino.board.model.Book;
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,8 +14,8 @@ public class BookService {
     private ConcurrentMap<Long, Book> books = new ConcurrentHashMap<>();
     private AtomicLong nextId = new AtomicLong();
 
-    public BookService () {
-        this.save(new Book("Guia del autoestopista galactico", "un buen libro", "Douglas Adams", "Anagrama", 1979 ));
+    public BookService() {
+        this.save(new Book("Guia del autoestopista galactico", "un buen libro", "Douglas Adams", "Anagrama", 1979));
     }
 
     public Collection<Book> findAll() {
@@ -24,11 +23,8 @@ public class BookService {
     }
 
     public void save(Book book) {
-
         long id = this.nextId.getAndIncrement();
-
         book.setId(id);
-
         this.books.put(id, book);
     }
 

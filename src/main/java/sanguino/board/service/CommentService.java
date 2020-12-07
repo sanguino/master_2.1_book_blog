@@ -1,10 +1,8 @@
 package sanguino.board.service;
 
 import org.springframework.stereotype.Service;
-import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -17,12 +15,11 @@ public class CommentService {
     private ConcurrentMap<Long, Comment> comments = new ConcurrentHashMap<>();
     private AtomicLong nextId = new AtomicLong();
 
-    public CommentService () {
-        this.addComment(new Comment(0L, "Peter", "Great Book", 42 ));
+    public CommentService() {
+        this.addComment(new Comment(0L, "Peter", "Great Book", 42));
     }
 
     public void addComment(Comment comment) {
-
         long id = this.nextId.getAndIncrement();
         comment.setId(id);
         this.comments.put(id, comment);

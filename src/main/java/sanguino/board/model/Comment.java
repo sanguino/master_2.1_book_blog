@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Comment {
 
-
     private Long id;
 
     @JsonIgnore
@@ -64,5 +63,4 @@ public class Comment {
     public String toString() {
         return "Book [id=" + id + "bookId =" + bookId + ", name =" + name + ", comment =" + comment + ", score =" + score.toString() + "]";
     }
-
 }

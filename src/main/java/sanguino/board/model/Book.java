@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 public class Book {
 
-    public interface Basic {}
+    public interface Basic {
+    }
 
     @JsonView(Basic.class)
     private Long id;
@@ -77,5 +78,4 @@ public class Book {
     public String toString() {
         return "Book [id=" + id + ", title =" + title + ", synopsis =" + synopsis + ", author =" + author + ", editorial =" + editorial + ", publishedYearuser=" + this.publishedYear.toString() + "]";
     }
-
 }

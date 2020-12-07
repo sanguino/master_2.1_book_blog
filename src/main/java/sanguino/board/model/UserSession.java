@@ -7,14 +7,13 @@ import org.springframework.web.context.annotation.SessionScope;
 @SessionScope
 public class UserSession {
 
-	private String user;
+    private String user;
 
-	public void setUser(String user) {
-		this.user = user;
-	}
+    public void setUser(String user) {
+        this.user = user;
+    }
 
-	public String getUser() {
-		return user;
-	}
-
+    public String getUser() {
+        return user;
+    }
 }
