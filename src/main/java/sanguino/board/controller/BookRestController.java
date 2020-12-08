@@ -132,9 +132,9 @@ public class BookRestController {
                     content = @Content
             ),
     })
-    @PostMapping("/books/{bookId}/comments")
-    public ResponseEntity<Comment> newComment(@RequestBody Comment comment, @PathVariable long bookId) {
-        comment.setBookId(bookId);
+    @PostMapping("/books/{id}/comments")
+    public ResponseEntity<Comment> newComment(@RequestBody Comment comment, @PathVariable long id) {
+        comment.setBookId(id);
         commentService.addComment(comment);
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(comment.getId()).toUri();
         return ResponseEntity.created(location).body(comment);
