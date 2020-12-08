@@ -11,7 +11,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/rest/book",
+					"raw": "http://localhost:8080/rest/books",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -19,19 +19,19 @@
 					"port": "8080",
 					"path": [
 						"rest",
-						"book"
+						"books"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "BOOK/0",
+			"name": "BOOKS/0",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/rest/book/0",
+					"raw": "http://localhost:8080/rest/books/0",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -39,7 +39,7 @@
 					"port": "8080",
 					"path": [
 						"rest",
-						"book",
+						"books",
 						"0"
 					]
 				}
@@ -47,7 +47,7 @@
 			"response": []
 		},
 		{
-			"name": "BOOK",
+			"name": "BOOKS",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -61,7 +61,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/rest/book",
+					"raw": "http://localhost:8080/rest/books",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -69,19 +69,19 @@
 					"port": "8080",
 					"path": [
 						"rest",
-						"book"
+						"books"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "BOOK/1",
+			"name": "BOOKS/1",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/rest/book/1",
+					"raw": "http://localhost:8080/rest/books/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -89,7 +89,7 @@
 					"port": "8080",
 					"path": [
 						"rest",
-						"book",
+						"books",
 						"1"
 					]
 				}
@@ -97,13 +97,13 @@
 			"response": []
 		},
 		{
-			"name": "COMMENT",
+			"name": "COMMENTS",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"bookId\": 0,\n    \"name\": \"John\",\n    \"comment\": \"Another Great Book\",\n    \"score\": 52\n}",
+					"raw": "{\n    \"bookId\": 0,\n    \"name\": \"John\",\n    \"comment\": \"Another Great Book\",\n    \"score\": 52\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -111,7 +111,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/rest/book/0/comment",
+					"raw": "http://localhost:8080/rest/books/0/comments",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -119,21 +119,21 @@
 					"port": "8080",
 					"path": [
 						"rest",
-						"book",
+						"books",
 						"0",
-						"comment"
+						"comments"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "COMMENT/1",
+			"name": "COMMENTS/1",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/rest/book/0/comment/1",
+					"raw": "http://localhost:8080/rest/books/0/comments/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -141,9 +141,9 @@
 					"port": "8080",
 					"path": [
 						"rest",
-						"book",
+						"books",
 						"0",
-						"comment",
+						"comments",
 						"1"
 					]
 				}
