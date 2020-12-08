@@ -6,6 +6,7 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 public class Comment {
 
+    @JsonProperty(access = Access.READ_ONLY)
     private Long id;
 
     @JsonProperty(access = Access.WRITE_ONLY)

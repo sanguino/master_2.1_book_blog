@@ -44,7 +44,7 @@ public class BookRestController {
                             @Content(
                                     mediaType = "application/json",
                                     array = @ArraySchema(
-                                            schema = @Schema(implementation = Book.Basic.class)
+                                            schema = @Schema(implementation = Book.class)
                                     )
                             )
                     }

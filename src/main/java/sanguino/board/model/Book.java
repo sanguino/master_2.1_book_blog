@@ -1,5 +1,6 @@
 package sanguino.board.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
 public class Book {
@@ -8,6 +9,7 @@ public class Book {
     }
 
     @JsonView(Basic.class)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @JsonView(Basic.class)
