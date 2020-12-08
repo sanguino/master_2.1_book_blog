@@ -74,6 +74,7 @@ public class BookRestController {
                     content = @Content
             ),
     })
+    @JsonView(Book.Complete.class)
     @PostMapping("/books")
     public ResponseEntity<Book> newBook(@RequestBody Book book) {
         bookService.save(book);

@@ -8,6 +8,9 @@ public class Book {
     public interface Basic {
     }
 
+    public interface Complete extends Basic {
+    }
+
     @JsonView(Basic.class)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
@@ -15,9 +18,13 @@ public class Book {
     @JsonView(Basic.class)
     private String title;
 
+    @JsonView(Complete.class)
     private String synopsis;
+    @JsonView(Complete.class)
     private String author;
+    @JsonView(Complete.class)
     private String editorial;
+    @JsonView(Complete.class)
     private Integer publishedYear;
 
     public Book(String title, String synopsis, String author, String editorial, Integer publishedYear) {
