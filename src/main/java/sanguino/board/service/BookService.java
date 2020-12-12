@@ -37,7 +37,8 @@ public class BookService {
     }
 
     public BookCompleteResponseDto findById(long id) {
-        Book book = this.bookRepository.findById(id);
+        Book book = this.bookRepository.findById(id).orElseThrow();
+        ;
         book.setComments(this.commentRepository.findByBookId(id));
         return this.modelMapper.map(book, BookCompleteResponseDto.class);
     }
@@ -50,11 +51,8 @@ public class BookService {
     }
 
     public CommentResponseDto deleteCommentById(long bookId, long commentId) {
-        Comment comment = this.commentRepository.findById(commentId);
-        if (comment != null && comment.getBookId() == bookId) {
-            comment = this.commentRepository.deleteCommentById(commentId);
-            return this.modelMapper.map(comment, CommentResponseDto.class);
-        }
-        return null;
+        this.commentRepository.findByBookIdAndId(bookId, commentId).orElseThrow();
+        Comment comment = this.commentRepository.deleteCommentById(commentId);
+        return this.modelMapper.map(comment, CommentResponseDto.class);
     }
 }

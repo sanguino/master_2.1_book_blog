@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import sanguino.board.model.Book;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -29,7 +30,7 @@ public class BookRepository {
         return book;
     }
 
-    public Book findById(long id) {
-        return this.books.get(id);
+    public Optional<Book> findById(long id) {
+        return Optional.ofNullable(this.books.get(id));
     }
 }

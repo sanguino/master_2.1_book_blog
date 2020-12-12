@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import sanguino.board.model.Comment;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -32,8 +33,12 @@ public class CommentRepository {
                 .collect(Collectors.toList());
     }
 
-    public Comment findById(long id) {
-        return comments.get(id);
+    public Optional<Comment> findByBookIdAndId(long bookId, long id) {
+        Comment comment = comments.get(id);
+        if (comment != null && comment.getBookId() == bookId) {
+            return Optional.ofNullable(comment);
+        }
+        return Optional.empty();
     }
 
     public Comment deleteCommentById(long id) {

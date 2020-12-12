@@ -1,18 +1,12 @@
 package sanguino.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sanguino.board.dtos.*;
-import sanguino.board.model.Book;
-import sanguino.board.model.Comment;
 import sanguino.board.model.UserSession;
 import sanguino.board.service.BookService;
 
-import java.net.URI;
 import java.util.Collection;
-
-import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 @RestController
 @RequestMapping("/rest")
