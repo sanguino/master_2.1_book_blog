@@ -1,23 +1,21 @@
 package sanguino.board.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long bookId;
     private String name;
     private String comment;
     private Integer score;
 
-    public Comment(Long bookId, String name, String comment, Integer score) {
-        this.bookId = bookId;
+    @ManyToOne
+    private Book book;
+
+    public Comment(String name, String comment, Integer score) {
         this.name = name;
         this.comment = comment;
         this.score = score;
@@ -32,14 +30,6 @@ public class Comment {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Long bookId) {
-        this.bookId = bookId;
     }
 
     public String getName() {
@@ -66,8 +56,16 @@ public class Comment {
         this.score = score;
     }
 
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
     @Override
     public String toString() {
-        return "Book [id=" + id + "bookId =" + bookId + ", name =" + name + ", comment =" + comment + ", score =" + score.toString() + "]";
+        return "Book [id=" + id + ", name =" + name + ", comment =" + comment + ", score =" + score.toString() + ", book =" + book.getId() + "]";
     }
 }

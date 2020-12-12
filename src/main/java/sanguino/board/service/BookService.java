@@ -5,20 +5,21 @@ import org.springframework.stereotype.Service;
 import sanguino.board.dtos.*;
 import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
-import sanguino.board.repositories.BookMemoryRepository;
-import sanguino.board.repositories.CommentMemoryRepository;
+import sanguino.board.repositories.BookRepository;
+import sanguino.board.repositories.CommentRepository;
 
 import java.util.Collection;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
 public class BookService {
 
-    private BookMemoryRepository bookRepository;
-    private CommentMemoryRepository commentRepository;
+    private BookRepository bookRepository;
+    private CommentRepository commentRepository;
     private ModelMapper modelMapper;
 
-    public BookService(BookMemoryRepository bookRepository, CommentMemoryRepository commentRepository) {
+    public BookService(BookRepository bookRepository, CommentRepository commentRepository) {
         this.modelMapper = new ModelMapper();
         this.bookRepository = bookRepository;
         this.commentRepository = commentRepository;
@@ -38,21 +39,23 @@ public class BookService {
 
     public BookCompleteResponseDto findById(long id) {
         Book book = this.bookRepository.findById(id).orElseThrow();
-        ;
-        book.setComments(this.commentRepository.findByBookId(id));
         return this.modelMapper.map(book, BookCompleteResponseDto.class);
     }
 
     public CommentResponseDto addComment(Long id, CommentRequestDto commentRequestDto) {
+        Book book = this.bookRepository.findById(id).orElseThrow();
         Comment comment = this.modelMapper.map(commentRequestDto, Comment.class);
-        comment.setBookId(id);
-        comment = this.commentRepository.addComment(comment);
+        comment.setBook(book);
+        this.commentRepository.save(comment);
         return this.modelMapper.map(comment, CommentResponseDto.class);
     }
 
     public CommentResponseDto deleteCommentById(long bookId, long commentId) {
-        this.commentRepository.findByBookIdAndId(bookId, commentId).orElseThrow();
-        Comment comment = this.commentRepository.deleteCommentById(commentId);
+        Comment comment = this.commentRepository.findById(commentId).orElseThrow();
+        if (comment.getBook().getId() != bookId) {
+            throw new NoSuchElementException();
+        }
+        this.commentRepository.deleteById(commentId);
         return this.modelMapper.map(comment, CommentResponseDto.class);
     }
 }
