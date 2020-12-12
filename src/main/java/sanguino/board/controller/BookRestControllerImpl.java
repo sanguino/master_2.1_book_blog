@@ -7,7 +7,6 @@ import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
 import sanguino.board.model.UserSession;
 import sanguino.board.service.BookService;
-import sanguino.board.repositories.CommentRepository;
 
 import java.net.URI;
 import java.util.Collection;
@@ -20,9 +19,6 @@ public class BookRestControllerImpl implements BookRestController {
 
     @Autowired
     private BookService bookService;
-
-    @Autowired
-    private CommentRepository commentService;
 
     @Autowired
     private UserSession userSession;
@@ -55,7 +51,7 @@ public class BookRestControllerImpl implements BookRestController {
     @PostMapping("/books/{id}/comments")
     public ResponseEntity<Comment> newComment(@RequestBody Comment comment, @PathVariable long id) {
         comment.setBookId(id);
-        commentService.addComment(comment);
+        bookService.addComment(comment);
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(comment.getId()).toUri();
         return ResponseEntity.created(location).body(comment);
     }
@@ -63,11 +59,6 @@ public class BookRestControllerImpl implements BookRestController {
     @Override
     @DeleteMapping("/books/{bookId}/comments/{commentId}")
     public ResponseEntity<Comment> deleteComment(@PathVariable long bookId, @PathVariable long commentId) {
-        Comment comment = commentService.findById(commentId);
-        if (comment != null && comment.getBookId() == bookId) {
-            commentService.deleteCommentById(commentId);
-            return ResponseEntity.ok(comment);
-        }
-        return ResponseEntity.notFound().build();
+        return this.bookService.deleteCommentById(bookId, commentId);
     }
 }

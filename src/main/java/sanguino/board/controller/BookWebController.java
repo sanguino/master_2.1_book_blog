@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
 import sanguino.board.model.UserSession;
-import sanguino.board.service.BookService;
 import sanguino.board.repositories.CommentRepository;
+import sanguino.board.service.BookService;
 
 import java.util.List;
 
@@ -19,9 +19,6 @@ public class BookWebController {
 
     @Autowired
     private BookService bookService;
-
-    @Autowired
-    private CommentRepository commentService;
 
     @Autowired
     private UserSession userSession;
@@ -46,11 +43,10 @@ public class BookWebController {
     @GetMapping("/book/{id}")
     public String showPost(Model model, @PathVariable long id) {
         Book book = bookService.findById(id);
-        List<Comment> comments = commentService.findByBookId(id);
 
         model.addAttribute("user", userSession.getUser());
         model.addAttribute("book", book);
-        model.addAttribute("comments", comments);
+        model.addAttribute("comments", book.getComments());
         return "show_book";
     }
 
@@ -58,7 +54,7 @@ public class BookWebController {
     public String newComment(Model model, Comment comment, @PathVariable long bookId) {
         comment.setBookId(bookId);
         userSession.setUser(comment.getName());
-        commentService.addComment(comment);
+        bookService.addComment(comment);
 
         model.addAttribute("id", bookId);
         model.addAttribute("type", "saved");
@@ -67,8 +63,7 @@ public class BookWebController {
 
     @GetMapping("/book/{bookId}/comment/{commentId}/delete")
     public String deleteComment(Model model, Comment comment, @PathVariable long bookId, @PathVariable long commentId) {
-        comment.setBookId(bookId);
-        commentService.deleteCommentById(commentId);
+        bookService.deleteCommentById(bookId, commentId);
 
         model.addAttribute("id", bookId);
         model.addAttribute("type", "deleted");
