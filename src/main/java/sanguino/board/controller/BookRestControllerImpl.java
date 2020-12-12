@@ -3,7 +3,6 @@ package sanguino.board.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sanguino.board.dtos.*;
-import sanguino.board.model.UserSession;
 import sanguino.board.service.BookService;
 
 import java.util.Collection;
@@ -14,9 +13,6 @@ public class BookRestControllerImpl implements BookRestController {
 
     @Autowired
     private BookService bookService;
-
-    @Autowired
-    private UserSession userSession;
 
     @Override
     @GetMapping("/books")

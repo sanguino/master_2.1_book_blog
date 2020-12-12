@@ -1,17 +1,9 @@
 package sanguino.board.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import static com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 public class Comment {
 
-    @JsonProperty(access = Access.READ_ONLY)
     private Long id;
-
-    @JsonProperty(access = Access.WRITE_ONLY)
     private Long bookId;
-
     private String name;
     private String comment;
     private Integer score;
