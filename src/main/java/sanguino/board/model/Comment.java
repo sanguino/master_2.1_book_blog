@@ -15,6 +15,9 @@ public class Comment {
     @ManyToOne
     private Book book;
 
+    @ManyToOne
+    private User user;
+
     public Comment(String name, String comment, Integer score) {
         this.name = name;
         this.comment = comment;
