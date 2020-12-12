@@ -32,7 +32,7 @@ public class BookControllerImpl implements BookController {
 
     @Override
     @GetMapping("/books/{id}")
-    public BookCompleteResponseDto showPost(@PathVariable long id) {
+    public BookCompleteResponseDto showBook(@PathVariable long id) {
         return bookService.findById(id);
     }
 

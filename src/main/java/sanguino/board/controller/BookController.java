@@ -79,7 +79,7 @@ public interface BookController {
             )
     })
     @GetMapping("/books/{id}")
-    BookCompleteResponseDto showPost(@PathVariable long id);
+    BookCompleteResponseDto showBook(@PathVariable long id);
 
     @Operation(summary = "Create a comment by book id")
     @ApiResponses(value = {
