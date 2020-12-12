@@ -3,6 +3,9 @@ package sanguino.board.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import java.util.Collection;
+import java.util.List;
+
 public class Book {
 
     public interface Basic {
@@ -26,6 +29,8 @@ public class Book {
     private String editorial;
     @JsonView(Complete.class)
     private Integer publishedYear;
+    @JsonView(Complete.class)
+    private Collection<Comment> comments = List.of();
 
     public Book(String title, String synopsis, String author, String editorial, Integer publishedYear) {
         this.title = title;
@@ -81,6 +86,14 @@ public class Book {
 
     public void setPublishedYear(Integer publishedYear) {
         this.publishedYear = publishedYear;
+    }
+
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override
