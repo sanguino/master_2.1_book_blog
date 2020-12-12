@@ -11,7 +11,7 @@ import sanguino.board.dtos.*;
 
 import java.util.Collection;
 
-public interface BookRestController {
+public interface BookController {
     @Operation(summary = "Get a list of books (id and title only)")
     @ApiResponses(value = {
             @ApiResponse(

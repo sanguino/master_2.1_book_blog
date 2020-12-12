@@ -9,7 +9,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/rest")
-public class BookRestControllerImpl implements BookRestController {
+public class BookControllerImpl implements BookController {
 
     @Autowired
     private BookService bookService;
