@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import sanguino.board.dtos.*;
 import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
-import sanguino.board.repositories.BookRepository;
-import sanguino.board.repositories.CommentRepository;
+import sanguino.board.repositories.BookMemoryRepository;
+import sanguino.board.repositories.CommentMemoryRepository;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class BookService {
 
-    private BookRepository bookRepository;
-    private CommentRepository commentRepository;
+    private BookMemoryRepository bookRepository;
+    private CommentMemoryRepository commentRepository;
     private ModelMapper modelMapper;
 
-    public BookService(BookRepository bookRepository, CommentRepository commentRepository) {
+    public BookService(BookMemoryRepository bookRepository, CommentMemoryRepository commentRepository) {
         this.modelMapper = new ModelMapper();
         this.bookRepository = bookRepository;
         this.commentRepository = commentRepository;
