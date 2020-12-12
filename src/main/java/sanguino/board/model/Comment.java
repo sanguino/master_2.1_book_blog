@@ -8,18 +8,18 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+
+    @ManyToOne
+    private User user;
+
     private String comment;
     private Integer score;
 
     @ManyToOne
     private Book book;
 
-    @ManyToOne
-    private User user;
-
-    public Comment(String name, String comment, Integer score) {
-        this.name = name;
+    public Comment(User user, String comment, Integer score) {
+        this.user = user;
         this.comment = comment;
         this.score = score;
     }
@@ -35,12 +35,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public User getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getComment() {
@@ -69,6 +69,12 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "Book [id=" + id + ", name =" + name + ", comment =" + comment + ", score =" + score.toString() + ", book =" + book.getId() + "]";
+        return "Comment{" +
+                "id=" + id +
+                ", user=" + user +
+                ", comment='" + comment + '\'' +
+                ", score=" + score +
+                ", book=" + book +
+                '}';
     }
 }

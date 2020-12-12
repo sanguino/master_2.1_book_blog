@@ -1,9 +1,5 @@
 package sanguino.board.dtos.response;
 
-import sanguino.board.model.Comment;
-
-import java.util.Collection;
-
 public class UserResponseDto {
     private String nick;
     private String email;

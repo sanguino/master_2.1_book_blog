@@ -5,21 +5,13 @@ import javax.validation.constraints.Min;
 
 public class CommentRequestDto {
 
-    private String name;
     private String comment;
     @Min(value = 0, message = "Score should be equals or greater than 0")
     @Max(value = 5, message = "Score should be equals or less than 5")
     private float score;
+    private String nick;
 
     public CommentRequestDto() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getComment() {
@@ -36,5 +28,13 @@ public class CommentRequestDto {
 
     public void setScore(float score) {
         this.score = score;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 }

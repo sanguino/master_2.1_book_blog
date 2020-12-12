@@ -4,14 +4,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import sanguino.board.dtos.request.UserCreateRequestDto;
 import sanguino.board.dtos.request.UserPatchRequestDto;
+import sanguino.board.dtos.response.CommentResponseDto;
 import sanguino.board.dtos.response.UserResponseDto;
 import sanguino.board.exceptions.ConflictException;
-import sanguino.board.model.Comment;
 import sanguino.board.model.User;
 import sanguino.board.repositories.CommentRepository;
 import sanguino.board.repositories.UserRepository;
 
-import java.util.NoSuchElementException;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -51,5 +52,12 @@ public class UserService {
         User user = this.userRepository.findById(nick).orElseThrow();
         this.userRepository.deleteById(nick);
         return this.modelMapper.map(user, UserResponseDto.class);
+    }
+
+    public Collection<CommentResponseDto> findCommentsById(String nick) {
+        User user = this.userRepository.findById(nick).orElseThrow();
+        return this.commentRepository.findByUser(user).stream()
+                .map(comment -> this.modelMapper.map(comment, CommentResponseDto.class))
+                .collect(Collectors.toList());
     }
 }

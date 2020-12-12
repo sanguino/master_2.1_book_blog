@@ -3,7 +3,7 @@ package sanguino.board.dtos.response;
 public class CommentResponseDto {
 
     private Long id;
-    private String name;
+    private UserResponseDto user;
     private String comment;
     private Integer score;
 
@@ -18,12 +18,12 @@ public class CommentResponseDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public UserResponseDto getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser(UserResponseDto user) {
+        this.user = user;
     }
 
     public String getComment() {

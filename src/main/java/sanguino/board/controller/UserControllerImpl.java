@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sanguino.board.dtos.request.UserCreateRequestDto;
 import sanguino.board.dtos.request.UserPatchRequestDto;
+import sanguino.board.dtos.response.CommentResponseDto;
 import sanguino.board.dtos.response.UserResponseDto;
 import sanguino.board.service.UserService;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/rest")
@@ -25,8 +28,8 @@ public class UserControllerImpl {
     }
 
     @GetMapping("/users/{nick}/comments")
-    public UserResponseDto showUserComments(@PathVariable String nick) {
-        return userService.findById(nick);
+    public Collection<CommentResponseDto> showUserComments(@PathVariable String nick) {
+        return userService.findCommentsById(nick);
     }
 
     @PatchMapping("/users/{nick}")
