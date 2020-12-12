@@ -1,4 +1,4 @@
-package sanguino.board.dtos;
+package sanguino.board.dtos.response;
 
 public class CommentResponseDto {
 

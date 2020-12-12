@@ -1,4 +1,4 @@
-package sanguino.board.dtos;
+package sanguino.board.dtos.request;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

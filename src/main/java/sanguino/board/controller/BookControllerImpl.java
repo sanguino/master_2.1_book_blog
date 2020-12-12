@@ -2,7 +2,11 @@ package sanguino.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sanguino.board.dtos.*;
+import sanguino.board.dtos.request.BookRequestDto;
+import sanguino.board.dtos.request.CommentRequestDto;
+import sanguino.board.dtos.response.BookBasicResponseDto;
+import sanguino.board.dtos.response.BookCompleteResponseDto;
+import sanguino.board.dtos.response.CommentResponseDto;
 import sanguino.board.service.BookService;
 
 import java.util.Collection;

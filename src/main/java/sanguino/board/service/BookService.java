@@ -2,7 +2,11 @@ package sanguino.board.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import sanguino.board.dtos.*;
+import sanguino.board.dtos.request.BookRequestDto;
+import sanguino.board.dtos.request.CommentRequestDto;
+import sanguino.board.dtos.response.BookBasicResponseDto;
+import sanguino.board.dtos.response.BookCompleteResponseDto;
+import sanguino.board.dtos.response.CommentResponseDto;
 import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
 import sanguino.board.repositories.BookRepository;

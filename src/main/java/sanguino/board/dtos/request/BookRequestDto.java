@@ -1,26 +1,14 @@
-package sanguino.board.dtos;
+package sanguino.board.dtos.request;
 
-import java.util.Collection;
+public class BookRequestDto {
 
-public class BookCompleteResponseDto {
-
-    private Long id;
     private String title;
     private String synopsis;
     private String author;
     private String editorial;
     private int publishedYear;
-    private Collection<CommentResponseDto> comments;
 
-    public BookCompleteResponseDto() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public BookRequestDto() {
     }
 
     public String getTitle() {
@@ -61,13 +49,5 @@ public class BookCompleteResponseDto {
 
     public void setPublishedYear(int publishedYear) {
         this.publishedYear = publishedYear;
-    }
-
-    public Collection<CommentResponseDto> getComments() {
-        return comments;
-    }
-
-    public void setComments(Collection<CommentResponseDto> comments) {
-        this.comments = comments;
     }
 }

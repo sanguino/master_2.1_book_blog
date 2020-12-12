@@ -7,7 +7,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
-import sanguino.board.dtos.*;
+import sanguino.board.dtos.request.BookRequestDto;
+import sanguino.board.dtos.request.CommentRequestDto;
+import sanguino.board.dtos.response.BookBasicResponseDto;
+import sanguino.board.dtos.response.BookCompleteResponseDto;
+import sanguino.board.dtos.response.CommentResponseDto;
 
 import java.util.Collection;
 
