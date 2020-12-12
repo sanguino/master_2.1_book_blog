@@ -7,34 +7,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sanguino.board.model.Book;
-import sanguino.board.model.BookWithComments;
 import sanguino.board.model.Comment;
-import sanguino.board.model.UserSession;
-import sanguino.board.service.BookService;
-import sanguino.board.service.CommentService;
 
-import java.net.URI;
 import java.util.Collection;
 
-import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
-
-@RestController
-@RequestMapping("/rest")
-public class BookRestController {
-
-    @Autowired
-    private BookService bookService;
-
-    @Autowired
-    private CommentService commentService;
-
-    @Autowired
-    private UserSession userSession;
-
+public interface BookRestController {
     @Operation(summary = "Get a list of books (id and title only)")
     @ApiResponses(value = {
             @ApiResponse(
@@ -52,9 +32,7 @@ public class BookRestController {
     })
     @JsonView(Book.Basic.class)
     @GetMapping("/books")
-    public Collection<Book> listBooks() {
-        return this.bookService.findAll();
-    }
+    Collection<Book> listBooks();
 
     @Operation(summary = "Create a book")
     @ApiResponses(value = {
@@ -76,11 +54,7 @@ public class BookRestController {
     })
     @JsonView(Book.Complete.class)
     @PostMapping("/books")
-    public ResponseEntity<Book> newBook(@RequestBody Book book) {
-        bookService.save(book);
-        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(book.getId()).toUri();
-        return ResponseEntity.created(location).body(book);
-    }
+    ResponseEntity<Book> newBook(@RequestBody Book book);
 
     @Operation(summary = "Show book info and comments by id")
     @ApiResponses(value = {
@@ -90,7 +64,7 @@ public class BookRestController {
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = BookWithComments.class)
+                                    schema = @Schema(implementation = Book.class)
                             )
                     }
             ),
@@ -106,14 +80,7 @@ public class BookRestController {
             )
     })
     @GetMapping("/books/{id}")
-    public ResponseEntity<Book> showPost(@PathVariable long id) {
-        Book book = bookService.findById(id);
-        if (book != null) {
-            BookWithComments bookWithComments = new BookWithComments(book, commentService.findByBookId(id));
-            return ResponseEntity.ok(bookWithComments);
-        }
-        return ResponseEntity.notFound().build();
-    }
+    ResponseEntity<Book> showPost(@PathVariable long id);
 
     @Operation(summary = "Create a comment by book id")
     @ApiResponses(value = {
@@ -134,12 +101,7 @@ public class BookRestController {
             ),
     })
     @PostMapping("/books/{id}/comments")
-    public ResponseEntity<Comment> newComment(@RequestBody Comment comment, @PathVariable long id) {
-        comment.setBookId(id);
-        commentService.addComment(comment);
-        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(comment.getId()).toUri();
-        return ResponseEntity.created(location).body(comment);
-    }
+    ResponseEntity<Comment> newComment(@RequestBody Comment comment, @PathVariable long id);
 
     @Operation(summary = "Delete a comment by book id")
     @ApiResponses(value = {
@@ -166,12 +128,5 @@ public class BookRestController {
             )
     })
     @DeleteMapping("/books/{bookId}/comments/{commentId}")
-    public ResponseEntity<Comment> deleteComment(@PathVariable long bookId, @PathVariable long commentId) {
-        Comment comment = commentService.findById(commentId);
-        if (comment != null && comment.getBookId() == bookId) {
-            commentService.deleteCommentById(commentId);
-            return ResponseEntity.ok(comment);
-        }
-        return ResponseEntity.notFound().build();
-    }
+    ResponseEntity<Comment> deleteComment(@PathVariable long bookId, @PathVariable long commentId);
 }
