@@ -9,11 +9,11 @@ public class UserSession {
 
     private String user;
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
     public String getUser() {
         return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

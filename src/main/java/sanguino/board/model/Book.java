@@ -17,10 +17,8 @@ public class Book {
     @JsonView(Basic.class)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
-
     @JsonView(Basic.class)
     private String title;
-
     @JsonView(Complete.class)
     private String synopsis;
     @JsonView(Complete.class)
@@ -31,7 +29,6 @@ public class Book {
     private Integer publishedYear;
     @JsonView(Complete.class)
     private Collection<Comment> comments = List.of();
-
     public Book(String title, String synopsis, String author, String editorial, Integer publishedYear) {
         this.title = title;
         this.synopsis = synopsis;

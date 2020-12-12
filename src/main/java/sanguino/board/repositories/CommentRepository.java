@@ -1,7 +1,6 @@
 package sanguino.board.repositories;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import sanguino.board.model.Comment;
 
 import java.util.List;
