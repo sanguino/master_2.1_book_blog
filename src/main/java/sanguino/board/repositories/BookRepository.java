@@ -22,10 +22,11 @@ public class BookRepository {
         return this.books.values();
     }
 
-    public void save(Book book) {
+    public Book save(Book book) {
         long id = this.nextId.getAndIncrement();
         book.setId(id);
         this.books.put(id, book);
+        return book;
     }
 
     public Book findById(long id) {

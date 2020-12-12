@@ -19,10 +19,11 @@ public class CommentRepository {
         this.addComment(new Comment(0L, "Peter", "Great Book", 42));
     }
 
-    public void addComment(Comment comment) {
+    public Comment addComment(Comment comment) {
         long id = this.nextId.getAndIncrement();
         comment.setId(id);
         this.comments.put(id, comment);
+        return comment;
     }
 
     public List<Comment> findByBookId(long id) {
@@ -35,7 +36,7 @@ public class CommentRepository {
         return comments.get(id);
     }
 
-    public void deleteCommentById(long commentId) {
-        this.comments.remove(commentId);
+    public Comment deleteCommentById(long id) {
+        return this.comments.remove(id);
     }
 }

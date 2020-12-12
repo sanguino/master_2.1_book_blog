@@ -23,6 +23,9 @@ public class Comment {
         this.score = score;
     }
 
+    public Comment() {
+    }
+
     public Long getId() {
         return id;
     }

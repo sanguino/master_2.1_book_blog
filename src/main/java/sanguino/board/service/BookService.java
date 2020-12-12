@@ -1,47 +1,60 @@
 package sanguino.board.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import sanguino.board.dtos.*;
 import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
 import sanguino.board.repositories.BookRepository;
 import sanguino.board.repositories.CommentRepository;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
 
-    @Autowired
     private BookRepository bookRepository;
-    @Autowired
     private CommentRepository commentRepository;
+    private ModelMapper modelMapper;
 
-    public Collection<Book> findAll() {
-        return this.bookRepository.findAll();
+    public BookService(BookRepository bookRepository, CommentRepository commentRepository) {
+        this.modelMapper = new ModelMapper();
+        this.bookRepository = bookRepository;
+        this.commentRepository = commentRepository;
     }
 
-    public void save(Book book) {
-        this.bookRepository.save(book);
+    public Collection<BookBasicResponseDto> findAll() {
+        return this.bookRepository.findAll().stream()
+                .map(book -> this.modelMapper.map(book, BookBasicResponseDto.class))
+                .collect(Collectors.toList());
     }
 
-    public Book findById(long id) {
+    public BookCompleteResponseDto save(BookRequestDto bookRequestDto) {
+        Book book = this.modelMapper.map(bookRequestDto, Book.class);
+        book = this.bookRepository.save(book);
+        return this.modelMapper.map(book, BookCompleteResponseDto.class);
+    }
+
+    public BookCompleteResponseDto findById(long id) {
         Book book = this.bookRepository.findById(id);
         book.setComments(this.commentRepository.findByBookId(id));
-        return book;
+        return this.modelMapper.map(book, BookCompleteResponseDto.class);
     }
 
-    public void addComment(Comment comment) {
-        this.commentRepository.addComment(comment);
+    public CommentResponseDto addComment(Long id, CommentRequestDto commentRequestDto) {
+        Comment comment = this.modelMapper.map(commentRequestDto, Comment.class);
+        comment.setBookId(id);
+        comment = this.commentRepository.addComment(comment);
+        return this.modelMapper.map(comment, CommentResponseDto.class);
     }
 
-    public ResponseEntity<Comment> deleteCommentById(long bookId, long commentId) {
+    public CommentResponseDto deleteCommentById(long bookId, long commentId) {
         Comment comment = this.commentRepository.findById(commentId);
         if (comment != null && comment.getBookId() == bookId) {
-            this.commentRepository.deleteCommentById(commentId);
-            return ResponseEntity.ok(comment);
+            comment = this.commentRepository.deleteCommentById(commentId);
+            return this.modelMapper.map(comment, CommentResponseDto.class);
         }
-        return ResponseEntity.notFound().build();
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package sanguino.board.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sanguino.board.dtos.*;
 import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
 import sanguino.board.model.UserSession;
@@ -25,40 +26,31 @@ public class BookRestControllerImpl implements BookRestController {
 
     @Override
     @GetMapping("/books")
-    public Collection<Book> listBooks() {
+    public Collection<BookBasicResponseDto> listBooks() {
         return this.bookService.findAll();
     }
 
     @Override
     @PostMapping("/books")
-    public ResponseEntity<Book> newBook(@RequestBody Book book) {
-        bookService.save(book);
-        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(book.getId()).toUri();
-        return ResponseEntity.created(location).body(book);
+    public BookCompleteResponseDto newBook(@RequestBody BookRequestDto book) {
+        return bookService.save(book);
     }
 
     @Override
     @GetMapping("/books/{id}")
-    public ResponseEntity<Book> showPost(@PathVariable long id) {
-        Book book = bookService.findById(id);
-        if (book != null) {
-            return ResponseEntity.ok(book);
-        }
-        return ResponseEntity.notFound().build();
+    public BookCompleteResponseDto showPost(@PathVariable long id) {
+        return bookService.findById(id);
     }
 
     @Override
     @PostMapping("/books/{id}/comments")
-    public ResponseEntity<Comment> newComment(@RequestBody Comment comment, @PathVariable long id) {
-        comment.setBookId(id);
-        bookService.addComment(comment);
-        URI location = fromCurrentRequest().path("/{id}").buildAndExpand(comment.getId()).toUri();
-        return ResponseEntity.created(location).body(comment);
+    public CommentResponseDto newComment(@RequestBody CommentRequestDto comment, @PathVariable long id) {
+        return bookService.addComment(id, comment);
     }
 
     @Override
     @DeleteMapping("/books/{bookId}/comments/{commentId}")
-    public ResponseEntity<Comment> deleteComment(@PathVariable long bookId, @PathVariable long commentId) {
+    public CommentResponseDto deleteComment(@PathVariable long bookId, @PathVariable long commentId) {
         return this.bookService.deleteCommentById(bookId, commentId);
     }
 }

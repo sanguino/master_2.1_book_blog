@@ -1,33 +1,25 @@
-package sanguino.board.model;
+package sanguino.board.dtos;
 
 import java.util.Collection;
-import java.util.List;
 
-public class Book {
+public class BookCompleteResponseDto {
+
     private Long id;
     private String title;
     private String synopsis;
     private String author;
     private String editorial;
-    private Integer publishedYear;
-    private Collection<Comment> comments = List.of();
+    private int publishedYear;
+    private Collection<CommentResponseDto> comments;
 
-    public Book() {
-    }
-
-    public Book(String title, String synopsis, String author, String editorial, Integer publishedYear) {
-        this.title = title;
-        this.synopsis = synopsis;
-        this.author = author;
-        this.editorial = editorial;
-        this.publishedYear = publishedYear;
+    public BookCompleteResponseDto() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,24 +55,19 @@ public class Book {
         this.editorial = editorial;
     }
 
-    public Integer getPublishedYear() {
+    public int getPublishedYear() {
         return publishedYear;
     }
 
-    public void setPublishedYear(Integer publishedYear) {
+    public void setPublishedYear(int publishedYear) {
         this.publishedYear = publishedYear;
     }
 
-    public Collection<Comment> getComments() {
+    public Collection<CommentResponseDto> getComments() {
         return comments;
     }
 
-    public void setComments(Collection<Comment> comments) {
+    public void setComments(Collection<CommentResponseDto> comments) {
         this.comments = comments;
-    }
-
-    @Override
-    public String toString() {
-        return "Book [id=" + id + ", title =" + title + ", synopsis =" + synopsis + ", author =" + author + ", editorial =" + editorial + ", publishedYearuser=" + this.publishedYear.toString() + "]";
     }
 }

@@ -1,16 +1,13 @@
 package sanguino.board.controller;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sanguino.board.model.Book;
-import sanguino.board.model.Comment;
+import sanguino.board.dtos.*;
 
 import java.util.Collection;
 
@@ -24,15 +21,14 @@ public interface BookRestController {
                             @Content(
                                     mediaType = "application/json",
                                     array = @ArraySchema(
-                                            schema = @Schema(implementation = Book.class)
+                                            schema = @Schema(implementation = BookBasicResponseDto.class)
                                     )
                             )
                     }
             )
     })
-    @JsonView(Book.Basic.class)
     @GetMapping("/books")
-    Collection<Book> listBooks();
+    Collection<BookBasicResponseDto> listBooks();
 
     @Operation(summary = "Create a book")
     @ApiResponses(value = {
@@ -42,7 +38,7 @@ public interface BookRestController {
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = Book.class)
+                                    schema = @Schema(implementation = BookCompleteResponseDto.class)
                             )
                     }
             ),
@@ -52,9 +48,8 @@ public interface BookRestController {
                     content = @Content
             ),
     })
-    @JsonView(Book.Complete.class)
     @PostMapping("/books")
-    ResponseEntity<Book> newBook(@RequestBody Book book);
+    BookCompleteResponseDto newBook(@RequestBody BookRequestDto book);
 
     @Operation(summary = "Show book info and comments by id")
     @ApiResponses(value = {
@@ -64,7 +59,7 @@ public interface BookRestController {
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = Book.class)
+                                    schema = @Schema(implementation = BookCompleteResponseDto.class)
                             )
                     }
             ),
@@ -80,7 +75,7 @@ public interface BookRestController {
             )
     })
     @GetMapping("/books/{id}")
-    ResponseEntity<Book> showPost(@PathVariable long id);
+    BookCompleteResponseDto showPost(@PathVariable long id);
 
     @Operation(summary = "Create a comment by book id")
     @ApiResponses(value = {
@@ -90,7 +85,7 @@ public interface BookRestController {
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = Comment.class)
+                                    schema = @Schema(implementation = CommentResponseDto.class)
                             )
                     }
             ),
@@ -101,7 +96,7 @@ public interface BookRestController {
             ),
     })
     @PostMapping("/books/{id}/comments")
-    ResponseEntity<Comment> newComment(@RequestBody Comment comment, @PathVariable long id);
+    CommentResponseDto newComment(@RequestBody CommentRequestDto comment, @PathVariable long id);
 
     @Operation(summary = "Delete a comment by book id")
     @ApiResponses(value = {
@@ -111,7 +106,7 @@ public interface BookRestController {
                     content = {
                             @Content(
                                     mediaType = "application/json",
-                                    schema = @Schema(implementation = Comment.class)
+                                    schema = @Schema(implementation = CommentResponseDto.class)
                             )
                     }
 
@@ -128,5 +123,5 @@ public interface BookRestController {
             )
     })
     @DeleteMapping("/books/{bookId}/comments/{commentId}")
-    ResponseEntity<Comment> deleteComment(@PathVariable long bookId, @PathVariable long commentId);
+    CommentResponseDto deleteComment(@PathVariable long bookId, @PathVariable long commentId);
 }
