@@ -33,12 +33,12 @@ public class UserControllerImpl {
     }
 
     @PatchMapping("/users/{nick}")
-    public UserResponseDto showPost(@PathVariable String nick, @RequestBody UserPatchRequestDto user) {
+    public UserResponseDto modifyUser(@PathVariable String nick, @RequestBody UserPatchRequestDto user) {
         return userService.updateBy(nick, user);
     }
 
     @DeleteMapping("/users/{nick}")
-    public UserResponseDto deleteComment(@PathVariable String nick) {
+    public UserResponseDto deleteUser(@PathVariable String nick) {
         return this.userService.deleteById(nick);
     }
 }
