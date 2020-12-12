@@ -1,34 +1,34 @@
 package sanguino.board.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sanguino.board.model.Book;
+import sanguino.board.model.Comment;
+import sanguino.board.repositories.BookRepository;
+import sanguino.board.repositories.CommentRepository;
 
 import java.util.Collection;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class BookService {
 
-    private ConcurrentMap<Long, Book> books = new ConcurrentHashMap<>();
-    private AtomicLong nextId = new AtomicLong();
+    @Autowired
+    private BookRepository bookRepository;
 
-    public BookService() {
-        this.save(new Book("Guia del autoestopista galactico", "un buen libro", "Douglas Adams", "Anagrama", 1979));
-    }
+    @Autowired
+    private CommentRepository commentRepository;
 
     public Collection<Book> findAll() {
-        return this.books.values();
+        return this.bookRepository.findAll();
     }
 
     public void save(Book book) {
-        long id = this.nextId.getAndIncrement();
-        book.setId(id);
-        this.books.put(id, book);
+        this.bookRepository.save(book);
     }
 
     public Book findById(long id) {
-        return this.books.get(id);
+        Book book = this.bookRepository.findById(id);
+        book.setComments(this.commentRepository.findByBookId(id));
+        return book;
     }
 }

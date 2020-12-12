@@ -1,5 +1,6 @@
-package sanguino.board.service;
+package sanguino.board.repositories;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import sanguino.board.model.Comment;
 
@@ -9,13 +10,13 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-@Service
-public class CommentService {
+@Repository
+public class CommentRepository {
 
     private ConcurrentMap<Long, Comment> comments = new ConcurrentHashMap<>();
     private AtomicLong nextId = new AtomicLong();
 
-    public CommentService() {
+    public CommentRepository() {
         this.addComment(new Comment(0L, "Peter", "Great Book", 42));
     }
 

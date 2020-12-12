@@ -10,7 +10,7 @@ import sanguino.board.model.Book;
 import sanguino.board.model.Comment;
 import sanguino.board.model.UserSession;
 import sanguino.board.service.BookService;
-import sanguino.board.service.CommentService;
+import sanguino.board.repositories.CommentRepository;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class BookWebController {
     private BookService bookService;
 
     @Autowired
-    private CommentService commentService;
+    private CommentRepository commentService;
 
     @Autowired
     private UserSession userSession;
