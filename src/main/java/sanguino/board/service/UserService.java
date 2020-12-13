@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import sanguino.board.dtos.request.UserCreateRequestDto;
 import sanguino.board.dtos.request.UserPatchRequestDto;
 import sanguino.board.dtos.response.CommentForUserResponseDto;
-import sanguino.board.dtos.response.CommentResponseDto;
 import sanguino.board.dtos.response.UserResponseDto;
 import sanguino.board.exceptions.UserExistsException;
 import sanguino.board.exceptions.UserHasCommentsException;
