@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import sanguino.board.dtos.request.UserCreateRequestDto;
 import sanguino.board.dtos.request.UserPatchRequestDto;
+import sanguino.board.dtos.response.CommentForUserResponseDto;
 import sanguino.board.dtos.response.CommentResponseDto;
 import sanguino.board.dtos.response.UserResponseDto;
 import sanguino.board.exceptions.UserExistsException;
@@ -58,10 +59,14 @@ public class UserService {
         return this.modelMapper.map(user, UserResponseDto.class);
     }
 
-    public Collection<CommentResponseDto> findCommentsById(String nick) {
+    public Collection<CommentForUserResponseDto> findCommentsById(String nick) {
         User user = this.userRepository.findById(nick).orElseThrow();
         return this.commentRepository.findByUser(user).stream()
-                .map(comment -> this.modelMapper.map(comment, CommentResponseDto.class))
+                .map(comment -> {
+                    CommentForUserResponseDto commentForUserResponseDto = this.modelMapper.map(comment, CommentForUserResponseDto.class);
+                    commentForUserResponseDto.setBookId(comment.getBook().getId());
+                    return commentForUserResponseDto;
+                })
                 .collect(Collectors.toList());
     }
 }
