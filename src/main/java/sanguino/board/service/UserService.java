@@ -62,11 +62,7 @@ public class UserService {
     public Collection<CommentForUserResponseDto> findCommentsById(String nick) {
         User user = this.userRepository.findById(nick).orElseThrow();
         return this.commentRepository.findByUser(user).stream()
-                .map(comment -> {
-                    CommentForUserResponseDto commentForUserResponseDto = this.modelMapper.map(comment, CommentForUserResponseDto.class);
-                    commentForUserResponseDto.setBookId(comment.getBook().getId());
-                    return commentForUserResponseDto;
-                })
+                .map(comment -> this.modelMapper.map(comment, CommentForUserResponseDto.class))
                 .collect(Collectors.toList());
     }
 }
