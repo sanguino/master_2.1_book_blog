@@ -16,6 +16,7 @@ import sanguino.board.dtos.response.CommentResponseDto;
 import java.util.Collection;
 
 public interface BookController {
+
     @Operation(summary = "Get a list of books (id and title only)")
     @ApiResponses(value = {
             @ApiResponse(
@@ -31,13 +32,12 @@ public interface BookController {
                     }
             )
     })
-    @GetMapping("/books")
     Collection<BookBasicResponseDto> listBooks();
 
     @Operation(summary = "Create a book")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "201",
+                    responseCode = "200",
                     description = "Book created",
                     content = {
                             @Content(
@@ -52,7 +52,6 @@ public interface BookController {
                     content = @Content
             ),
     })
-    @PostMapping("/books")
     BookCompleteResponseDto newBook(@RequestBody BookRequestDto book);
 
     @Operation(summary = "Show book info and comments by id")
@@ -78,13 +77,12 @@ public interface BookController {
                     content = @Content
             )
     })
-    @GetMapping("/books/{id}")
     BookCompleteResponseDto showBook(@PathVariable long id);
 
     @Operation(summary = "Create a comment by book id")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "201",
+                    responseCode = "200",
                     description = "Comment created",
                     content = {
                             @Content(
@@ -99,7 +97,6 @@ public interface BookController {
                     content = @Content
             ),
     })
-    @PostMapping("/books/{id}/comments")
     CommentResponseDto newComment(@RequestBody CommentRequestDto comment, @PathVariable long id);
 
     @Operation(summary = "Delete a comment by book id")
@@ -126,6 +123,5 @@ public interface BookController {
                     content = @Content
             )
     })
-    @DeleteMapping("/books/{bookId}/comments/{commentId}")
     CommentResponseDto deleteComment(@PathVariable long bookId, @PathVariable long commentId);
 }
