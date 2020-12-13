@@ -271,7 +271,7 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "createAndPatchUserAndComments",
+			"name": "createAndPatchUser",
 			"item": [
 				{
 					"name": "createUser",
@@ -535,6 +535,198 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "createUserAndGetComments",
+			"item": [
+				{
+					"name": "createUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a0e3f634-3d37-4bc3-aebd-a81bfbdc2cb2",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"test json body\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.nick).to.eql(\"testCreateUserComments\");",
+									"    pm.expect(jsonData.email).to.eql(\"testCreateUserComments@gmail.com\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nick\": \"testCreateUserComments\",\n    \"email\": \"testCreateUserComments@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create book",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7eee08b8-1397-487b-b72f-57f5e0716910",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"bookId\", pm.response.json().id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"El Hobbit\",\n    \"synopsis\": \"un buen libro\",\n    \"author\": \"J. R. R. Tolkien\",\n    \"editorial\": \"George Allen & Unwin\",\n    \"publishedYear\": 1937\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/books",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create comment error book not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c5dfd22f-2221-49c1-8d0a-656eef369f7f",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nick\": \"testCreateUserComments\",\n    \"comment\": \"Another Great Book\",\n    \"score\": 52\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/books/333/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"books",
+								"333",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create comment error user not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4187fc59-9b87-4cda-9ea7-2b531cc8bd96",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nick\": \"fakeUser\",\n    \"comment\": \"Another Great Book\",\n    \"score\": 52\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest/books/{{bookId}}/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest",
+								"books",
+								"{{bookId}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
 				},
 				{
 					"name": "create comment 1 to user",
@@ -542,7 +734,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "66f65adb-529d-4fcf-bf81-048b91ab76c9",
+								"id": "04c617ad-eab1-4b82-8f79-fa64c305ee87",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -560,7 +752,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nick\": \"testCreateUser\",\n    \"comment\": \"Another Great Book\",\n    \"score\": 52\n}",
+							"raw": "{\n    \"nick\": \"testCreateUserComments\",\n    \"comment\": \"Another Great Book\",\n    \"score\": 52\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -568,7 +760,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/rest/books/1/comments",
+							"raw": "http://localhost:8080/rest/books/{{bookId}}/comments",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -577,7 +769,7 @@
 							"path": [
 								"rest",
 								"books",
-								"1",
+								"{{bookId}}",
 								"comments"
 							]
 						}
@@ -590,7 +782,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6644c867-9ab0-4983-99f2-1447fc2f86c3",
+								"id": "5da95824-e427-4f58-b86f-202aa36cfe0a",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -608,7 +800,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nick\": \"testCreateUser\",\n    \"comment\": \"Another Great Book\",\n    \"score\": 52\n}",
+							"raw": "{\n    \"nick\": \"testCreateUserComments\",\n    \"comment\": \"Another Great Book\",\n    \"score\": 52\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -616,7 +808,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/rest/books/1/comments",
+							"raw": "http://localhost:8080/rest/books/{{bookId}}/comments",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -625,7 +817,7 @@
 							"path": [
 								"rest",
 								"books",
-								"1",
+								"{{bookId}}",
 								"comments"
 							]
 						}
@@ -638,7 +830,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "726a0bbd-3a14-47d9-9b9f-17eb2241782a",
+								"id": "f2c368a0-2589-4976-b2fc-b626d4b38b83",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -647,9 +839,9 @@
 									"pm.test(\"test json body\", function () {",
 									"    var jsonData = pm.response.json();",
 									"    pm.expect(jsonData[0].id).to.eql(pm.collectionVariables.get(\"comment1Id\"));",
-									"    pm.expect(jsonData[0].user.nick).to.eql(\"testCreateUser\");",
+									"    pm.expect(jsonData[0].bookId).to.eql(pm.collectionVariables.get(\"bookId\"));",
 									"    pm.expect(jsonData[1].id).to.eql(pm.collectionVariables.get(\"comment2Id\"));",
-									"    pm.expect(jsonData[1].user.nick).to.eql(\"testCreateUser\");",
+									"    pm.expect(jsonData[1].bookId).to.eql(pm.collectionVariables.get(\"bookId\"));",
 									"});"
 								],
 								"type": "text/javascript"
@@ -660,7 +852,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/rest/users/testCreateUser/comments",
+							"raw": "http://localhost:8080/rest/users/testCreateUserComments/comments",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -669,12 +861,34 @@
 							"path": [
 								"rest",
 								"users",
-								"testCreateUser",
+								"testCreateUserComments",
 								"comments"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cb727da5-561e-4ad6-9854-eb44d537409d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f4af9ca7-edce-4d74-bda7-be71b987c0b4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -1111,32 +1325,32 @@
 	],
 	"variable": [
 		{
-			"id": "b41e49ff-6c4c-44d7-8810-5431115fbdbf",
+			"id": "0a7436c8-03a8-41be-93a9-a0dcf3354cb1",
 			"key": "bookId",
 			"value": ""
 		},
 		{
-			"id": "00dfc968-af5b-4f77-acbc-dcf782e335f6",
+			"id": "3b0f27c4-4f32-4901-afb6-5cad623deadb",
 			"key": "comment1Id",
 			"value": ""
 		},
 		{
-			"id": "a187a4b1-815b-4f7f-b17b-13b23fd796cc",
+			"id": "d16dfc27-8ddd-4c9f-a0cc-24630f9891cd",
 			"key": "comment2Id",
 			"value": ""
 		},
 		{
-			"id": "bb7f4026-dba8-46fb-a911-5aecfffcdd6d",
+			"id": "e2dc4f79-afcd-4a73-bf9b-2e5e38d18209",
 			"key": "book1Id",
 			"value": ""
 		},
 		{
-			"id": "e2ec8850-c2b3-47f1-a2c8-16f656d7a994",
+			"id": "fb65cdad-2a8f-4979-ab69-5a156ea08e09",
 			"key": "book2Id",
 			"value": ""
 		},
 		{
-			"id": "8b4dce43-5d91-4fa9-bbf6-eaf1b5395a6a",
+			"id": "bf23065e-91a5-4c14-96fe-8d336e2880cf",
 			"key": "commentId",
 			"value": ""
 		}
