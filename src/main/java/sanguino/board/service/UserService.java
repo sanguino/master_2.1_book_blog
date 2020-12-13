@@ -6,7 +6,8 @@ import sanguino.board.dtos.request.UserCreateRequestDto;
 import sanguino.board.dtos.request.UserPatchRequestDto;
 import sanguino.board.dtos.response.CommentResponseDto;
 import sanguino.board.dtos.response.UserResponseDto;
-import sanguino.board.exceptions.ConflictException;
+import sanguino.board.exceptions.UserExistsException;
+import sanguino.board.exceptions.UserHasCommentsException;
 import sanguino.board.model.User;
 import sanguino.board.repositories.CommentRepository;
 import sanguino.board.repositories.UserRepository;
@@ -29,7 +30,7 @@ public class UserService {
 
     public UserResponseDto save(UserCreateRequestDto userCreateRequestDto) {
         if (this.userRepository.existsById(userCreateRequestDto.getNick())) {
-            throw new ConflictException();
+            throw new UserExistsException();
         }
         User user = this.modelMapper.map(userCreateRequestDto, User.class);
         user = this.userRepository.save(user);
@@ -50,6 +51,9 @@ public class UserService {
 
     public UserResponseDto deleteById(String nick) {
         User user = this.userRepository.findById(nick).orElseThrow();
+        if (this.commentRepository.findByUser(user).size() != 0) {
+            throw new UserHasCommentsException();
+        }
         this.userRepository.deleteById(nick);
         return this.modelMapper.map(user, UserResponseDto.class);
     }
