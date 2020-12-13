@@ -536,11 +536,7 @@
 											"pm.test(\"Status code is 409\", function () {",
 											"    pm.response.to.have.status(409);",
 											"});",
-											"",
-											"pm.test(\"check error message is User has comments\", function () {",
-											"    var jsonData = pm.response.json();",
-											"    pm.expect(jsonData.message).to.eql(\"User has comments\");",
-											"});"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -626,6 +622,42 @@
 							],
 							"request": {
 								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/rest/users/testDeleteUser",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"rest",
+										"users",
+										"testDeleteUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get user ko",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "694a9065-a91e-42e8-8195-14ae16bee5d1",
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
 								"header": [],
 								"url": {
 									"raw": "http://localhost:8080/rest/users/testDeleteUser",
@@ -1972,32 +2004,32 @@
 	],
 	"variable": [
 		{
-			"id": "f464f5bb-96e1-4207-a568-16869f0b734c",
+			"id": "02234711-1636-4a06-b3a7-ef181fdbb344",
 			"key": "bookId",
 			"value": ""
 		},
 		{
-			"id": "1db001c1-6c5c-4682-8335-e36e8f2fcf66",
+			"id": "e1117e84-c956-4b0a-9520-5b932ced3a4c",
 			"key": "comment1Id",
 			"value": ""
 		},
 		{
-			"id": "05e975bd-baff-4f16-a4a3-da52d29c8437",
+			"id": "31978dde-6f17-4b06-b794-7a401309704a",
 			"key": "comment2Id",
 			"value": ""
 		},
 		{
-			"id": "eca97760-dbb2-4176-a00f-ca99bd5b11ca",
+			"id": "e33fa0a6-17ee-4b0d-9cb3-dd14ef33c129",
 			"key": "book1Id",
 			"value": ""
 		},
 		{
-			"id": "3c8a6a32-da88-4976-8645-dd18195b93ec",
+			"id": "45e3bd0f-f209-443d-b46f-7ac7068c96a7",
 			"key": "book2Id",
 			"value": ""
 		},
 		{
-			"id": "fa5a840d-33e5-4f35-a3d2-00f44f755b99",
+			"id": "8544fda8-0d8d-4575-a808-875fdaa3c8c3",
 			"key": "commentId",
 			"value": ""
 		}
