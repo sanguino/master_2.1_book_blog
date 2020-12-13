@@ -51,7 +51,7 @@ public class UserService {
 
     public UserResponseDto deleteById(String nick) {
         User user = this.userRepository.findById(nick).orElseThrow();
-        if (this.commentRepository.findByUser(user).size() != 0) {
+        if (this.commentRepository.countByUser(user) != 0) {
             throw new UserHasCommentsException();
         }
         this.userRepository.deleteById(nick);

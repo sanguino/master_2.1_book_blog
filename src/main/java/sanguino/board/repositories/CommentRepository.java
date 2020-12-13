@@ -8,4 +8,6 @@ import java.util.Collection;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     Collection<Comment> findByUser(User user);
+
+    int countByUser(User user);
 }
