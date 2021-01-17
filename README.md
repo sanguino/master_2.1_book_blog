@@ -11,3 +11,8 @@
 $ ./startMySql.sh
 ```
 
+#### exec
+
+```bash
+$ mvn spring-boot:run
+
