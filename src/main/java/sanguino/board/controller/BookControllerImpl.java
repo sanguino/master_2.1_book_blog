@@ -47,4 +47,10 @@ public class BookControllerImpl implements BookController {
     public CommentResponseDto deleteComment(@PathVariable long bookId, @PathVariable long commentId) {
         return this.bookService.deleteCommentById(bookId, commentId);
     }
+
+    @Override
+    @DeleteMapping("/books/{bookId}")
+    public BookCompleteResponseDto deleteBook(@PathVariable long bookId) {
+        return this.bookService.deleteBookById(bookId);
+    }
 }

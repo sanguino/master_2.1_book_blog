@@ -125,4 +125,30 @@ public interface BookController {
             )
     })
     CommentResponseDto deleteComment(@PathVariable long bookId, @PathVariable long commentId);
+
+    @Operation(summary = "Delete a book and its comments")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Book deleted",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = BookCompleteResponseDto.class)
+                            )
+                    }
+
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Bad Request",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Comment not found",
+                    content = @Content
+            )
+    })
+    BookCompleteResponseDto deleteBook(@PathVariable long bookId);
 }

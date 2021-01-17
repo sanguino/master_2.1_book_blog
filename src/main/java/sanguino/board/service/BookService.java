@@ -68,4 +68,13 @@ public class BookService {
         this.commentRepository.deleteById(commentId);
         return this.modelMapper.map(comment, CommentResponseDto.class);
     }
+
+    public BookCompleteResponseDto deleteBookById(long bookId) {
+        Book book = this.bookRepository.findById(bookId).orElseThrow();
+        book.getComments().stream().forEach(comment -> {
+            this.commentRepository.deleteById(comment.getId());
+        });
+
+        return this.modelMapper.map(book, BookCompleteResponseDto.class);
+    }
 }

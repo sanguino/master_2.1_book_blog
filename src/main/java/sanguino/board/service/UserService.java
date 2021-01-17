@@ -1,6 +1,9 @@
 package sanguino.board.service;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import sanguino.board.dtos.request.UserCreateRequestDto;
 import sanguino.board.dtos.request.UserPatchRequestDto;
@@ -13,10 +16,13 @@ import sanguino.board.repositories.CommentRepository;
 import sanguino.board.repositories.UserRepository;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.util.Collections.emptyList;
+
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
     private CommentRepository commentRepository;
@@ -26,6 +32,15 @@ public class UserService {
         this.modelMapper = new ModelMapper();
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String nick) throws UsernameNotFoundException {
+        Optional<User> user = this.userRepository.findById(nick);
+        if (!user.isPresent()) {
+            throw new UsernameNotFoundException(nick);
+        }
+        return new org.springframework.security.core.userdetails.User(user.get().getNick(), user.get().getPassword(), emptyList());
     }
 
     public UserResponseDto save(UserCreateRequestDto userCreateRequestDto) {
