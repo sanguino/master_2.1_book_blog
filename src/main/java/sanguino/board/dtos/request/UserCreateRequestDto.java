@@ -3,6 +3,7 @@ package sanguino.board.dtos.request;
 public class UserCreateRequestDto {
     private String nick;
     private String email;
+    private String password;
 
     public UserCreateRequestDto() {
     }
@@ -21,5 +22,13 @@ public class UserCreateRequestDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
