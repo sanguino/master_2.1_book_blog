@@ -74,7 +74,7 @@ public class BookService {
         book.getComments().stream().forEach(comment -> {
             this.commentRepository.deleteById(comment.getId());
         });
-
+        this.bookRepository.deleteById(bookId);
         return this.modelMapper.map(book, BookCompleteResponseDto.class);
     }
 }
